@@ -32,9 +32,9 @@ export default function Home () {
         <Navbar></Navbar>
         <div className="home">
         {characters?(
-            characters.map((character: { name: string; image: string; species:string })=>{
+            characters.map((character: { name: string; image: string; species:string; id:number })=>{
                 return(
-                    <Card  key={character.name} nameC= {character.name} address={character.image} especie={character.species}></Card>
+                    <Card  key={character.name} nameC= {character.name} address={character.image} specie={character.species} id={character.id}></Card>
 
                 );
             })

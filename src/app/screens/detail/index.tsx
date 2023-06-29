@@ -1,7 +1,7 @@
 import * as React from "react";
 import Navbar from "../../../global/components/navbar/index";
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, } from "react";
+import {useParams} from "../../../../node_modules/react-router-dom/dist/index";
 /*interface Props{
     nameC:string;
     address:string;
@@ -11,32 +11,39 @@ import { useState, useEffect } from "react";
 
 
 function Detail(/*{nameC, address, specie}:Props*/){
-    const [characters, setCharacters]= useState();
+    const [character, setCharacter]= useState();
+    const {id}=useParams();
 
     useEffect(()=>{
-        requestCharacters();
+        requestCharacter();
     },[]);
     
-    async function requestCharacters(){
+    async function requestCharacter(){
         try{
-            const res= await fetch( "https://rickandmortyapi.com/api/character");
+            const res= await fetch( `https://rickandmortyapi.com/api/character/${id}`);
             const json = await res.json();
 
-            setCharacters(json.results);
+            setCharacter(json);
         } catch (e) {console.error(e)}
         }
-        console.log(characters)
+        console.log(character)
 
     
     return(
         <div>
+            {character?(
+                <>
             <Navbar></Navbar>
             <a>
-                <img src={setCharacters} alt="Foto de personaje"/>
+                <img src={character.image} alt="Foto de personaje"/>
             </a>
-            <h3>Nombre: {setCharacters}</h3>
-            <h3>Especie: {setCharacters}</h3>
-            
+            <h3>Nombre: {character.name}</h3>
+            <h3>Especie: {character.species}</h3>
+            <h3>Tipo: {character.type}</h3>
+            <h3>Genero: {character.gender}</h3>
+            </>
+            ):(<h1>Cargando...</h1>
+            )}
         </div>
 
     )
