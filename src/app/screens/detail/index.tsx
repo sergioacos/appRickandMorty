@@ -11,7 +11,6 @@ interface Character {
     gender: string;
 }
 
-
 function Detail() {
     const { id } = useParams();
     const { data, error, loading } = useGetData<Character>(`https://rickandmortyapi.com/api/character/${id}`);
@@ -38,11 +37,12 @@ function Detail() {
                         <img src={data.image} alt="Foto de personaje" />
                     </a>
                     <h3>Nombre: {data.name}</h3>
+                    <h3>Estado: {data.status}</h3>
                     <h3>Especie: {data.species}</h3>
                     <h3>Tipo: {data.type}</h3>
                     <h3>Genero: {data.gender}</h3>
+                    <h3>Origen: {data.origin.name}</h3>
                 </>
-
             )}
         </div>
 

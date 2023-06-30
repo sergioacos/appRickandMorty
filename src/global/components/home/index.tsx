@@ -5,25 +5,31 @@ import Pagin from "../pagin/index";
 import { useState, useEffect } from "react";
 import "./home/module.css";
 
+interface props{
+    route:string;
 
+}
 
-export default function Home () {
+export default function Home ({route}:props) {
 
     const [characters, setCharacters]= useState();
+    const [Page, setPage]= useState('');
+    const handlePage=()=>{ //setPage(Page+1)
 
+}
     useEffect(()=>{
         requestCharacters();
     },[]);
     
     async function requestCharacters(){
         try{
-            const res= await fetch( "https://rickandmortyapi.com/api/character");
+            const res= await fetch( `https://rickandmortyapi.com/api/character/?page=${Page}`);
             const json = await res.json();
-
+            console.log(Page)
             setCharacters(json.results);
         } catch (e) {console.error(e)}
         }
-        console.log(characters)
+        
 
     return(
     <>
@@ -43,7 +49,7 @@ export default function Home () {
         )}
         
         </div>
-        <Pagin></Pagin>
+        <Pagin handlePage={handlePage}></Pagin>
     </div>
     </>
     )
