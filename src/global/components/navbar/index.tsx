@@ -1,6 +1,7 @@
 import * as React from "react";
 import Title from "./titles/index";
 import "./navBar.css"
+import { Link } from "../../../../node_modules/react-router-dom/dist/index";
 
 function Navbar(){
     return(
@@ -9,6 +10,7 @@ function Navbar(){
                 <img></img>
             </a>
             <div className="navBar">
+                <Link to="/">Home</Link>
                 <Title text="Personajes"></Title>
                 <Title text="Ubicaciones"></Title>
                 <Title text="Episodios"></Title>
@@ -17,4 +19,4 @@ function Navbar(){
     )
 } 
 
-export default Navbar
+export default Navbar;

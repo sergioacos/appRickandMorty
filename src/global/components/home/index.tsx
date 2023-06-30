@@ -29,7 +29,7 @@ export default function Home () {
     <>
     <div className="main" > 
     
-        <Navbar></Navbar>
+       
         <div className="home">
         {characters?(
             characters.map((character: { name: string; image: string; species:string; id:number })=>{
