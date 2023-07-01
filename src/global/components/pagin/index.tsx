@@ -4,13 +4,14 @@ import { useState } from "react";
 
 interface Props {
     numPage: number;
+   // Page:number;
     handlePage: (Page:number)=>void;
    // setPage:()=> void;
     //onPageChange: (selectedPage: number) => void;
   }
 export default function Pagin ({handlePage}:Props){
     const [numPage, setPage]=useState(1)
-   // const Page=Page;
+    //const Page=Page;
     const handleNextPag =()=>{ 
         setPage (numPage+1); 
         () =>handlePage(Number(Page));

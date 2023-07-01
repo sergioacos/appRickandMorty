@@ -1,55 +1,57 @@
 import * as React from "react";
-import Navbar from "../navbar/index";
 import Card from "../home/card/index";
 import Pagin from "../pagin/index";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./home/module.css";
+import useGetData from "../../../app/hooks/useGetData";
 
 interface props{
-    route:string;
+    //route:string;
 
 }
 
-export default function Home ({route}:props) {
+export default function Home ({}:props) {
 
-    const [characters, setCharacters]= useState();
-    const [Page, setPage]= useState('');
-    const handlePage=()=>{ //setPage(Page+1)
+    //const [datas, setdatas]= useState();
+    const [Page, setPage]= useState(1);
+   // const handlePage=()=>{ //setPage(Page+1)
 
-}
-    useEffect(()=>{
-        requestCharacters();
-    },[]);
-    
-    async function requestCharacters(){
-        try{
-            const res= await fetch( `https://rickandmortyapi.com/api/character/?page=${Page}`);
-            const json = await res.json();
-            console.log(Page)
-            setCharacters(json.results);
-        } catch (e) {console.error(e)}
-        }
-        
+//}
+const { data, error, loading } = useGetData<props>(`https://rickandmortyapi.com/api/character/?page=${Page}`);
+    if (loading) {
+        return (
+            <h1> Cargando...</h1>
+        )
+    }
+    if (error) {
+        return (
+            <>
+                <h1>
+                    Error en la petición
+                </h1>
+                <p>{error}</p>
+            </>
+        )
+    }
+   
 
     return(
     <>
     <div className="main" > 
-    
-       
+
         <div className="home">
-        {characters?(
-            characters.map((character: { name: string; image: string; species:string; id:number })=>{
+        {console.log(data)}
+        {data && (
+            data.results.map((dat: { name: string; image: string; species:string; id:number })=>{
                 return(
-                    <Card  key={character.name} nameC= {character.name} address={character.image} specie={character.species} id={character.id}></Card>
+                    <Card  key={dat.name} nameC= {dat.name} address={dat.image} specie={dat.species} id={dat.id}>{Page}</Card>
 
                 );
             })
-        ):(
-            <h1>Cargando...</h1>
         )}
         
         </div>
-        <Pagin handlePage={handlePage}></Pagin>
+        <Pagin /*handlePage={handlePage}*/></Pagin> 
     </div>
     </>
     )
